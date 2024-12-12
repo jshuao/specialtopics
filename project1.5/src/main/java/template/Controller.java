@@ -50,7 +50,8 @@ public class Controller {
 	
 	Random rand = new Random();
 	int[] digits;
-	int submissioncount = 0;
+	int count = 0;
+	int check = 0;
 	Label[][] labels;
 	
 	@FXML
@@ -100,87 +101,43 @@ public class Controller {
 				labels[i][j] = new Label();
 			}
 		}
-		
-		if(submissioncount == 0) {
-			for(int i = 0; i < digits.length; i++) {
-				if(digits[i] == submission[i]) {
-					h1.getChildren().add(labels[submissioncount][i]);
-					labels[submissioncount][i].setText("" + digits[i]);
-					labels[submissioncount][i].setStyle("-fx-background-color: green");
-					labels[submissioncount][i].setAlignment(Pos.CENTER);
-					h1.setAlignment(Pos.CENTER);
-				}
-				else if(anywhere(submission[i])){
-					h1.getChildren().add(labels[submissioncount][i]);
-					labels[submissioncount][i].setText("" + submission[i]);
-					labels[submissioncount][i].setStyle("-fx-background-color: yellow");
-					labels[submissioncount][i].setAlignment(Pos.CENTER);
-					h1.setAlignment(Pos.CENTER);
-				}
+
+		for(int i = 0; i < digits.length; i++) {
+			if(digits[i] == submission[i]) {
+				h1.getChildren().add(labels[count][i]);
+				labels[count][i].setText("" + digits[i]);
+				labels[count][i].setStyle("-fx-background-color: green");
+				labels[count][i].setAlignment(Pos.CENTER);
+				h1.setAlignment(Pos.CENTER);
+				check++;
 			}
-			submissioncount++;
-		}
-		else if(submissioncount == 1) {
-			for(int i = 0; i < digits.length; i++) {
-				if(digits[i] == submission[i]) {
-					h2.getChildren().add(labels[submissioncount][i]);
-					labels[submissioncount][i].setText("" + digits[i]);
-					labels[submissioncount][i].setStyle("-fx-background-color: green");
-					labels[submissioncount][i].setAlignment(Pos.CENTER);
-					h2.setAlignment(Pos.CENTER);
-				}
+			else if(anywhere(submission[i]) && digits[i] != sumission[i]){
+				h1.getChildren().add(labels[count][i]);
+				labels[count][i].setText("" + submission[i]);
+				labels[count][i].setStyle("-fx-background-color: yellow");
+				labels[count][i].setAlignment(Pos.CENTER);
+				h1.setAlignment(Pos.CENTER);
+				check = 0;
 			}
-			submissioncount++;
-		}
-		else if(submissioncount == 2) {
-			for(int i = 0; i < digits.length; i++) {
-				if(digits[i] == submission[i]) {
-					h3.getChildren().add(labels[submissioncount][i]);
-					labels[submissioncount][i].setText("" + digits[i]);
-					labels[submissioncount][i].setStyle("-fx-background-color: green");
-					labels[submissioncount][i].setAlignment(Pos.CENTER);
-					h3.setAlignment(Pos.CENTER);
-				}
+			else{
+				h1.getChildren().add(labels[count][i]);
+				labels[count][i].setText("" + submission[i]);
+				labels[count][i].setStyle("-fx-background-color: grey");
+				labels[count][i].setAlignment(Pos.CENTER);
+				h1.setAlignment(Pos.CENTER);
+				check = 0;
 			}
-			submissioncount++;
-		}
-		else if(submissioncount == 3) {
-			for(int i = 0; i < digits.length; i++) {
-				if(digits[i] == submission[i]) {
-					h4.getChildren().add(labels[submissioncount][i]);
-					labels[submissioncount][i].setText("" + digits[i]);
-					labels[submissioncount][i].setStyle("-fx-background-color: green");
-					labels[submissioncount][i].setAlignment(Pos.CENTER);
-					h4.setAlignment(Pos.CENTER);
-				}
-			}submissioncount++;
-		}
-		else if(submissioncount == 4) {
-			for(int i = 0; i < digits.length; i++) {
-				if(digits[i] == submission[i]) {
-					h5.getChildren().add(labels[submissioncount][i]);
-					labels[submissioncount][i].setText("" + digits[i]);
-					labels[submissioncount][i].setStyle("-fx-background-color: green");
-					labels[submissioncount][i].setAlignment(Pos.CENTER);
-					h5.setAlignment(Pos.CENTER);
-				}
 			}
-			submissioncount++;
+		if(check == 5){
+			Label finish = new Label("You got the number!");
 		}
-		else if(submissioncount == 5) {
-			for(int i = 0; i < digits.length; i++) {
-				if(digits[i] == submission[i]) {
-					h6.getChildren().add(labels[submissioncount][i]);
-					labels[submissioncount][i].setText("" + digits[i]);
-					labels[submissioncount][i].setStyle("-fx-background-color: green");
-					labels[submissioncount][i].setAlignment(Pos.CENTER);
-					h6.setAlignment(Pos.CENTER);
-				}
-			}
-			submissioncount++;
+
+		if(count ==6 && check !=5){
 		}
 		
-	}
+		count++;
+		}
+		
 	
 	
 	
