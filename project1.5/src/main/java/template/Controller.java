@@ -7,6 +7,8 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.geometry.Pos;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 public class Controller {
 	@FXML
@@ -17,11 +19,15 @@ public class Controller {
 
     @FXML
     private TextField tf11, tf12, tf13, tf14, tf15;
+    
+    @FXML
+    private VBox v1;
 	
 	Random rand = new Random();
 	int[] digits;
 	int count = 0;
 	int check = 0;
+	int within = 0;
 	Label[][] labels;
 	
 	@FXML
@@ -72,46 +78,60 @@ public class Controller {
 				labels[i][j] = new Label();
 			}
 		}
-
+		HBox h = new HBox();
+		
 		for(int i = 0; i < digits.length; i++) {
 			// figure out how to make the font size bigger and get the margins
-			if(digits[i] == submission[i]) {
-				h1.getChildren().add(labels[count][i]);
-				labels[count][i].setText("" + digits[i]);
-				labels[count][i].setStyle("-fx-background-color: green");
-				labels[count][i].setAlignment(Pos.CENTER);
-				h1.setAlignment(Pos.CENTER);
-				check++;
+			if(count < digits.length) {
+				if(digits[i] == submission[i]) {
+					labels[count][i].setText("" + submission[i]);
+					labels[count][i].setStyle("-fx-background-color: green");
+					labels[count][i].setAlignment(Pos.CENTER);
+					// h1.setAlignment(Pos.CENTER);
+					check++;
+				}
+				else if(anywhere(submission[i]) && digits[i] != submission[i]){
+					labels[count][i].setText("" + submission[i]);
+					labels[count][i].setStyle("-fx-background-color: yellow");
+					labels[count][i].setAlignment(Pos.CENTER);
+					// h1.setAlignment(Pos.CENTER);
+					check = 0;
+				}
+				else{
+					labels[count][i].setText("" + submission[i]);
+					labels[count][i].setStyle("-fx-background-color: grey");
+					labels[count][i].setAlignment(Pos.CENTER);
+					// h1.setAlignment(Pos.CENTER);
+					check = 0;
+				}
+				within++;
+				
+				
+				
+				for(int j = 0; j < 6; j++) {
+					System.out.println("test");
+					h.getChildren().add(labels[j][i]);
+				}
+					
+				v1.getChildren().add(h);
+				}
+				count++;
 			}
-			else if(anywhere(submission[i]) && digits[i] != submission[i]){
-				h1.getChildren().add(labels[count][i]);
-				labels[count][i].setText("" + submission[i]);
-				labels[count][i].setStyle("-fx-background-color: yellow");
-				labels[count][i].setAlignment(Pos.CENTER);
-				h1.setAlignment(Pos.CENTER);
-				check = 0;
-			}
-			else{
-				h1.getChildren().add(labels[count][i]);
-				labels[count][i].setText("" + submission[i]);
-				labels[count][i].setStyle("-fx-background-color: grey");
-				labels[count][i].setAlignment(Pos.CENTER);
-				h1.setAlignment(Pos.CENTER);
-				check = 0;
-			}
-			}
+			
+		
+		within = 0;
+		
 		if(check == 5){
 			Label finish = new Label("You got the number!");
 		}
 
 		if(count ==6 && check !=5){
 			Label finish = new Label("You didn't get the number...");
-			// code to remove button
 		}
 
 		// code to add finish label
 		
-		count++;
+		
 		}
 		
 	
@@ -119,5 +139,4 @@ public class Controller {
 	
    
 }
-
 
