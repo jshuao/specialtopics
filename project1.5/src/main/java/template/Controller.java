@@ -10,40 +10,13 @@ import javafx.geometry.Pos;
 
 public class Controller {
 	@FXML
-    private HBox h1;
-
-    @FXML
-    private HBox h2;
-
-    @FXML
-    private HBox h3;
-
-    @FXML
-    private HBox h4;
-
-    @FXML
-    private HBox h5;
-
-    @FXML
-    private HBox h6;
+    private HBox h1, h2, h3, h4, h5, h6;
 
     @FXML
     private Button submit;
 
     @FXML
-    private TextField tf11;
-
-    @FXML
-    private TextField tf12;
-
-    @FXML
-    private TextField tf13;
-
-    @FXML
-    private TextField tf14;
-
-    @FXML
-    private TextField tf15;
+    private TextField tf11, tf12, tf13, tf14, tf15;
 	
 	Random rand = new Random();
 	int[] digits;
@@ -57,13 +30,13 @@ public class Controller {
 		labels = new Label[6][5];
 		for(int i = 0; i < digits.length; i++) {
 			digits[i] = rand.nextInt(10);
-			System.out.println(digits[i]);
+			System.out.print(digits[i]); // getting the number, remove before submitting
 		}
 	}
 	
 	public Boolean anywhere(int current) {
-		for (int element : digits) {
-		    if (element == current) {
+		for (int x : digits) {
+		    if (x == current) {
 		        return true;
 		    }
 		}return false;
@@ -71,7 +44,8 @@ public class Controller {
 	
 	public void check() {
 		int[] submission = new int[5];
-		
+
+		// just if statements only ?
 		
 		for(int i = 0; i < submission.length; i++) {
 			if(i==0) {
@@ -100,6 +74,7 @@ public class Controller {
 		}
 
 		for(int i = 0; i < digits.length; i++) {
+			// figure out how to make the font size bigger and get the margins
 			if(digits[i] == submission[i]) {
 				h1.getChildren().add(labels[count][i]);
 				labels[count][i].setText("" + digits[i]);
@@ -108,7 +83,7 @@ public class Controller {
 				h1.setAlignment(Pos.CENTER);
 				check++;
 			}
-			else if(anywhere(submission[i]) && digits[i] != sumission[i]){
+			else if(anywhere(submission[i]) && digits[i] != submission[i]){
 				h1.getChildren().add(labels[count][i]);
 				labels[count][i].setText("" + submission[i]);
 				labels[count][i].setStyle("-fx-background-color: yellow");
@@ -130,7 +105,11 @@ public class Controller {
 		}
 
 		if(count ==6 && check !=5){
+			Label finish = new Label("You didn't get the number...");
+			// code to remove button
 		}
+
+		// code to add finish label
 		
 		count++;
 		}
