@@ -44,9 +44,6 @@ public class Controller {
 
     @FXML
     private TextField tf15;
-    
-    @FXML
-    private Label l11, l12, l13, l14,l15, l21, l22, l23, l24,l25, l31, l32,l33,l34,l35,l41,l42,l43,l44,l45,l51,l52,l53,l54,l55,l61,l62,l63,l64,l65;
 	
 	Random rand = new Random();
 	int[] digits;
