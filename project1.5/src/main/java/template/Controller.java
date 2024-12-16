@@ -26,7 +26,6 @@ public class Controller {
 	int[] digits;
 	int count = 0;
 	int check = 0;
-	int within = 0;
 	Label[][] labels;
 	
 	@FXML
