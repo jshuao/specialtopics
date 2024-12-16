@@ -7,7 +7,6 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.geometry.Pos;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 public class Controller {
@@ -49,89 +48,52 @@ public class Controller {
 	}
 	
 	public void check() {
-		int[] submission = new int[5];
-
-		// just if statements only ?
+    		int[] submission = new int[5];
+           	submission[0] = Integer.parseInt(tf11.getText());
+       		submission[1] = Integer.parseInt(tf12.getText());
+		submission[2] = Integer.parseInt(tf13.getText());
+		submission[3] = Integer.parseInt(tf14.getText());
+		submission[4] = Integer.parseInt(tf15.getText());
+		check = 0;
+		HBox h = new HBox(); 
+		for (int i = 0; i < digits.length; i++) {
+			labels[count][i] = new Label();
+		        labels[count][i].setText("" + submission[i]);
+			labels[count][i].setAlignment(Pos.CENTER);
+	
+		        if (digits[i] == submission[i]) {
+		            labels[count][i].setStyle("-fx-background-color: green");
+		            check++;
+		        }
+			else if (anywhere(submission[i]) && digits[i] != submission[i]) {
+		            labels[count][i].setStyle("-fx-background-color: yellow");
+			check = 0;
+		        }
+			else {
+		            labels[count][i].setStyle("-fx-background-color: grey");
+				check = 0;
+		        }
 		
-		for(int i = 0; i < submission.length; i++) {
-			if(i==0) {
-				submission[i] = Integer.parseInt(tf11.getText());
-			}
-			else if(i==1) {
-				submission[i] = Integer.parseInt(tf12.getText());
-			}
-			else if(i==2) {
-				submission[i] = Integer.parseInt(tf13.getText());
-			}
-			else if(i==3) {
-				submission[i] = Integer.parseInt(tf14.getText());
-			}
-			else if(i==4) {
-				submission[i] = Integer.parseInt(tf15.getText());
-			}
-		}
+		        h.getChildren().add(labels[count][i]); 
+		    }
 		
+		    v1.getChildren().add(h);
+		    count++;
 		
+		   
+		    if (check == 5) {
+		        Label finish = new Label("You got the number!");
+			Button reset = new Button("Reset");
+		        v1.getChildren().addAll(finish, reset); 
+			v1.getChildren().remove(submit);
+		    }
 		
-		for(int i = 0; i < labels.length; i++) {
-			for(int j = 0; j < labels[0].length; j++) {
-				labels[i][j] = new Label();
-			}
-		}
-		HBox h = new HBox();
-		
-		for(int i = 0; i < digits.length; i++) {
-			// figure out how to make the font size bigger and get the margins
-			if(count < digits.length) {
-				if(digits[i] == submission[i]) {
-					labels[count][i].setText("" + submission[i]);
-					labels[count][i].setStyle("-fx-background-color: green");
-					labels[count][i].setAlignment(Pos.CENTER);
-					// h1.setAlignment(Pos.CENTER);
-					check++;
-				}
-				else if(anywhere(submission[i]) && digits[i] != submission[i]){
-					labels[count][i].setText("" + submission[i]);
-					labels[count][i].setStyle("-fx-background-color: yellow");
-					labels[count][i].setAlignment(Pos.CENTER);
-					// h1.setAlignment(Pos.CENTER);
-					check = 0;
-				}
-				else{
-					labels[count][i].setText("" + submission[i]);
-					labels[count][i].setStyle("-fx-background-color: grey");
-					labels[count][i].setAlignment(Pos.CENTER);
-					// h1.setAlignment(Pos.CENTER);
-					check = 0;
-				}
-				within++;
-				
-				
-				
-				for(int j = 0; j < 6; j++) {
-					System.out.println("test");
-					h.getChildren().add(labels[j][i]);
-				}
-					
-				v1.getChildren().add(h);
-				}
-				count++;
-			}
-			
-		
-		within = 0;
-		
-		if(check == 5){
-			Label finish = new Label("You got the number!");
-		}
-
-		if(count ==6 && check !=5){
-			Label finish = new Label("You didn't get the number...");
-		}
-
-		// code to add finish label
-		
-		
+		    if (count == 6 && check != 5) {
+		        Label finish = new Label("You didn't get the number...");
+			Button reset = new Button("Reset");
+		        v1.getChildren().add(finish);
+			v1.getChildren().addAll(finish, reset); 
+		    }
 		}
 		
 	
