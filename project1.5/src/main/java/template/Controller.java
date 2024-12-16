@@ -34,7 +34,7 @@ public class Controller {
 		labels = new Label[6][5];
 		for(int i = 0; i < digits.length; i++) {
 			digits[i] = rand.nextInt(10);
-			System.out.print(digits[i]); // getting the number, remove before submitting
+			System.out.println(digits[i]); // prints the number
 		}
 	}
 	
@@ -47,35 +47,34 @@ public class Controller {
 	}
 	
 	public void check() {
-    		int[] submission = new int[5];
+    	int[] submission = new int[5];
 		
-           	submission[0] = Integer.parseInt(tf11.getText());
-       		submission[1] = Integer.parseInt(tf12.getText());
+        submission[0] = Integer.parseInt(tf11.getText());
+       	submission[1] = Integer.parseInt(tf12.getText());
 		submission[2] = Integer.parseInt(tf13.getText());
 		submission[3] = Integer.parseInt(tf14.getText());
 		submission[4] = Integer.parseInt(tf15.getText());
 		
 		check = 0;
-		HBox h = new HBox(); 
+		HBox h = new HBox(10);
+		h.setAlignment(Pos.CENTER);
 		
 		for (int i = 0; i < digits.length; i++) {
-			// set the text and alignment here to get rid of redundancies. every scenario has submissoin[i] as text and centered
 			labels[count][i] = new Label();
-		        labels[count][i].setText("" + submission[i]);
+		    labels[count][i].setText("" + submission[i]);
 			labels[count][i].setAlignment(Pos.CENTER);
 			
-			// not sure if the check++, check = 0 works properly	
 			if (digits[i] == submission[i]) {
 		            labels[count][i].setStyle("-fx-background-color: green");
 		            check++;
 		        }
 			else if (anywhere(submission[i]) && digits[i] != submission[i]) {
 		            labels[count][i].setStyle("-fx-background-color: yellow");
-			check = 0;
+		            check = 0;
 		        }
 			else {
 		            labels[count][i].setStyle("-fx-background-color: grey");
-				check = 0;
+		            check = 0;
 		        }
 		
 		        h.getChildren().add(labels[count][i]); 
@@ -87,18 +86,36 @@ public class Controller {
 		   
 		    if (check == 5) {
 		        Label finish = new Label("You got the number!");
-			Button reset = new Button("Reset");
+		        Button reset = new Button("Reset");
 		        v1.getChildren().addAll(finish, reset); 
-			// how to turn off submit button
-			v1.getChildren().remove(submit);
-			// figure out how to reset all the labels and hboxes, clear the textfields and add submit button again
+		        v1.getChildren().remove(submit);
+		        reset.setOnAction(e -> {
+					v1.getChildren().clear();
+					tf11.setText("");
+					tf12.setText("");
+					tf13.setText("");
+					tf14.setText("");
+					tf15.setText("");
+					initialize();
+				});
+			
 		    }
 		
 		    if (count == 6 && check != 5) {
 		        Label finish = new Label("You didn't get the number...");
-			Button reset = new Button("Reset");
-		        v1.getChildren().add(finish);
-			v1.getChildren().addAll(finish, reset); 
+		        Button reset = new Button("Reset");
+		        submit.setDisable(true);
+		        v1.getChildren().addAll(finish, reset);
+		        reset.setOnAction(e -> {
+					submit.setDisable(false);
+					v1.getChildren().clear();
+					tf11.setText("");
+					tf12.setText("");
+					tf13.setText("");
+					tf14.setText("");
+					tf15.setText("");
+					initialize();
+				});
 		    }
 		}
 		
@@ -107,4 +124,3 @@ public class Controller {
 	
    
 }
-
