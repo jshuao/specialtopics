@@ -49,19 +49,24 @@ public class Controller {
 	
 	public void check() {
     		int[] submission = new int[5];
+		
            	submission[0] = Integer.parseInt(tf11.getText());
        		submission[1] = Integer.parseInt(tf12.getText());
 		submission[2] = Integer.parseInt(tf13.getText());
 		submission[3] = Integer.parseInt(tf14.getText());
 		submission[4] = Integer.parseInt(tf15.getText());
+		
 		check = 0;
 		HBox h = new HBox(); 
+		
 		for (int i = 0; i < digits.length; i++) {
+			// set the text and alignment here to get rid of redundancies. every scenario has submissoin[i] as text and centered
 			labels[count][i] = new Label();
 		        labels[count][i].setText("" + submission[i]);
 			labels[count][i].setAlignment(Pos.CENTER);
-	
-		        if (digits[i] == submission[i]) {
+			
+			// not sure if the check++, check = 0 works properly	
+			if (digits[i] == submission[i]) {
 		            labels[count][i].setStyle("-fx-background-color: green");
 		            check++;
 		        }
@@ -85,7 +90,9 @@ public class Controller {
 		        Label finish = new Label("You got the number!");
 			Button reset = new Button("Reset");
 		        v1.getChildren().addAll(finish, reset); 
+			// how to turn off submit button
 			v1.getChildren().remove(submit);
+			// figure out how to reset all the labels and hboxes, clear the textfields and add submit button again
 		    }
 		
 		    if (count == 6 && check != 5) {
